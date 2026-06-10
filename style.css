@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+
+  --cor-primaria: #6366f1;
+  --cor-fundo: #0f172a;
+  --cor-texto: #e2e8f0;
+  --cor-texto-suave: #94a3b8;
+
+  --espaco: 16px;
+  --espaco-lg: 32px;
+
+ 
+  --fonte: 'Consolas', sans-serif;
+}
+
+body {
+  font-family: var(--fonte);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.6;
+}
+
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+nav h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+}
+
+a {
+  color: var(--cor-texto);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: var(--cor-primaria);
+}
+
+
+section {
+  padding: 80px 10%;
+}
+
+
+#hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+
+  text-align: center;
+}
+
+#hero h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  animation: fadeIn 1s ease;
+}
+
+
+.pagina-interna {
+  min-height: 100vh;
+  padding: 140px 10% 60px;
+}
+
+.pagina-interna h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.pagina-interna p {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+.pagina-conteudo {
+  margin-top: 40px;
+}
+
+
+.projetos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--espaco-lg);
+}
+
+.projeto-card {
+  border-radius: 12px;
+  padding: 20px;
+  background: rgba(99, 102, 241, 0.08);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.projeto-card:hover {
+  transform: translateY(-8px);
+}
+
+.projeto-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.skill-tag {
+  padding: 8px 20px;
+
+  border-radius: 999px;
+
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+
+  transition: 0.3s;
+}
+
+.skill-tag:hover {
+  background: var(--cor-primaria);
+  color: white;
+}
+
+
+
+.form-contato {
+  max-width: 500px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+}
+
+.form-contato input,
+.form-contato textarea {
+
+  padding: 12px 16px;
+
+  border-radius: 8px;
+
+  border: 1px solid rgba(148, 163, 184, 0.2);
+
+  background: rgba(15, 23, 42, 0.5);
+
+  color: var(--cor-texto);
+}
+
+.form-contato input:focus,
+.form-contato textarea:focus {
+  border-color: var(--cor-primaria);
+  outline: none;
+}
+
+
+button {
+
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--cor-primaria);
+
+  color: white;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+
+  nav {
+    padding: 15px;
+  }
+
+  nav h2 {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  section {
+    padding: 60px 20px;
+  }
+
+  .pagina-interna {
+    padding: 120px 20px 40px;
+  }
+
+  #hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .projetos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-contato {
+  max-width: 700px;
+  margin: 0 auto 40px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  gap: 20px;
+}
+
+.info-item {
+  padding: 20px;
+
+  border-radius: 12px;
+
+  background: rgba(99, 102, 241, 0.08);
+
+  border: 1px solid rgba(99, 102, 241, 0.2);
+
+  text-align: center;
+}
+
+.info-item strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--cor-primaria);
+}
+
+.info-item p {
+  margin: 0;
+}
