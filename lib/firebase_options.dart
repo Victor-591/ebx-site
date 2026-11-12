@@ -43,7 +43,6 @@ class DefaultFirebaseOptions {
     projectId: 'ebxsite-6963a',
     storageBucket: 'ebxsite-6963a.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDhC4sEtbO7nU7ssZIKlOkR5_cmJ_FFCHg',
     appId: '1:149861354267:ios:460491055d0f5eb68561be',
@@ -52,7 +51,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'ebxsite-6963a.firebasestorage.app',
     iosBundleId: 'com.example.ebx',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDhC4sEtbO7nU7ssZIKlOkR5_cmJ_FFCHg',
     appId: '1:149861354267:ios:460491055d0f5eb68561be',
@@ -70,5 +68,4 @@ class DefaultFirebaseOptions {
     authDomain: 'ebxsite-6963a.firebaseapp.com',
     storageBucket: 'ebxsite-6963a.firebasestorage.app',
   );
-
 }

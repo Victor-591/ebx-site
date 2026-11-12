@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +12,21 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  try {
+    print('TESTANDO CONEXÃO COM FIRESTORE...');
+
+    await FirebaseFirestore.instance
+        .collection('Teste')
+        .limit(1)
+        .get()
+        .timeout(const Duration(seconds: 15));
+
+    print('CONEXÃO COM FIRESTORE FUNCIONOU!');
+  } catch (e) {
+    print('FALHA NA CONEXÃO COM FIRESTORE: $e');
+  }
+
   runApp(const EBX());
 }
 

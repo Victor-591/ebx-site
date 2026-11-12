@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'models/mensagens.dart';
+import 'services/firestore_service.dart';
 
 class ContatoPage extends StatefulWidget {
   const ContatoPage({super.key});
@@ -13,18 +17,17 @@ class _ContatoPageState extends State<ContatoPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mensagemController = TextEditingController();
 
-  Future<void> salvarPedido() async {
-    print("Nome: ${nomeController.text}");
-    print("Email: ${emailController.text}");
-    print("Mensagem: ${mensagemController.text}");
+  final FirestoreService banco = FirestoreService();
 
-    await FirebaseFirestore.instance.collection('orcamentos').add({
-      'nome': nomeController.text.trim(),
-      'email': emailController.text.trim(),
-      'mensagem': mensagemController.text.trim(),
-      'dataCadastro': Timestamp.now(),
-      'status': 'Novo',
-    });
+  Future<void> salvarPedido() async {
+    Mensagens mensagem = Mensagens(
+      nome: nomeController.text.trim(),
+      email: emailController.text.trim(),
+      mensagem: mensagemController.text.trim(),
+      dataCadastro: Timestamp.now(),
+    );
+
+    await banco.salvarMensagem(mensagem);
   }
 
   @override
@@ -46,7 +49,7 @@ class _ContatoPageState extends State<ContatoPage> {
 
       appBar: AppBar(
         backgroundColor: texto,
-        foregroundColor: texto,
+        foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: const Text('Pedido'),
@@ -61,7 +64,6 @@ class _ContatoPageState extends State<ContatoPage> {
 
             child: Column(
               children: [
-
                 const Text(
                   'Fale conosco!',
                   textAlign: TextAlign.center,
@@ -136,18 +138,13 @@ class _ContatoPageState extends State<ContatoPage> {
                 TextField(
                   controller: nomeController,
                   style: const TextStyle(color: texto),
-
                   decoration: InputDecoration(
                     labelText: 'Nome',
-                    labelStyle:
-                    const TextStyle(color: Colors.black),
-
+                    labelStyle: const TextStyle(color: Colors.black),
                     filled: true,
                     fillColor: Colors.white10,
-
                     border: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
@@ -156,21 +153,15 @@ class _ContatoPageState extends State<ContatoPage> {
 
                 TextField(
                   controller: emailController,
-                  keyboardType:
-                  TextInputType.emailAddress,
+                  keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(color: texto),
-
                   decoration: InputDecoration(
                     labelText: 'E-mail',
-                    labelStyle:
-                    const TextStyle(color: Colors.black),
-
+                    labelStyle: const TextStyle(color: Colors.black),
                     filled: true,
                     fillColor: Colors.white10,
-
                     border: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
@@ -181,19 +172,13 @@ class _ContatoPageState extends State<ContatoPage> {
                   controller: mensagemController,
                   maxLines: 5,
                   style: const TextStyle(color: texto),
-
                   decoration: InputDecoration(
-                    labelText:
-                    'Orçamentos, sugestões, críticas...',
-                    labelStyle:
-                    const TextStyle(color: Colors.black),
-
+                    labelText: 'Orçamentos, sugestões, críticas...',
+                    labelStyle: const TextStyle(color: Colors.black),
                     filled: true,
                     fillColor: Colors.white10,
-
                     border: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
@@ -202,23 +187,24 @@ class _ContatoPageState extends State<ContatoPage> {
 
                 SizedBox(
                   width: double.infinity,
-
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: destaque,
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         vertical: 16,
                       ),
                     ),
 
                     onPressed: () async {
+                      print('BOTÃO CLICADO!');
 
-                      if (nomeController.text.isEmpty ||
-                          emailController.text.isEmpty ||
-                          mensagemController.text.isEmpty) {
+                      if (nomeController.text.trim().isEmpty ||
+                          emailController.text.trim().isEmpty ||
+                          mensagemController.text.trim().isEmpty) {
+                        print('Existem campos vazios!');
 
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
                               'Necessário preencher os campos.',
@@ -230,8 +216,11 @@ class _ContatoPageState extends State<ContatoPage> {
                       }
 
                       try {
+                        print('Iniciando gravação no Firebase...');
 
                         await salvarPedido();
+
+                        print('GRAVAÇÃO CONCLUÍDA!');
 
                         nomeController.clear();
                         emailController.clear();
@@ -239,36 +228,25 @@ class _ContatoPageState extends State<ContatoPage> {
 
                         if (!context.mounted) return;
 
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text(
-                              'Solicitação enviada!',
-                            ),
+                            content: Text('Solicitação enviada!'),
                           ),
                         );
-
                       } catch (e) {
+                        print('ERRO AO ENVIAR: $e');
 
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(
+                        if (!context.mounted) return;
+
+                        ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(
-                              'Algo deu errado. $e',
-                            ),
+                            content: Text('Algo deu errado: $e'),
                           ),
                         );
-
                       }
                     },
 
-                    child: const Text(
-                      'Enviar mensagem',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
+                    child: const Text('Enviar'),
                   ),
                 ),
               ],
