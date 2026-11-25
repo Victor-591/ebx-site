@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+
 import 'sobre.dart';
 import 'pagprojetos.dart';
 import 'pagservicos.dart';
@@ -10,92 +12,109 @@ class Inicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(30),
-              color: Colors.blue[900],
-              child: const Column(
-                children: [
-                  Icon(Icons.lightbulb,
-                      size: 90, color: Colors.black),
-                  SizedBox(height: 15),
-                  Text(
-                    'EBX',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.lightbulb,
+                      size: 65,
+                      color: Color(0xFF2563EB),
                     ),
+                    SizedBox(width: 10),
+                    Text(
+                      'EBX',
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0F172A),
+                        letterSpacing: 2,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 45),
+
+
+                SizedBox(
+                  width: 240,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Sobre(),
+                        ),
+                      );
+                    },
+                    child: const Text('Sobre'),
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Comercial, Residencial e Industrial',
-                    textAlign: TextAlign.center,
+                ),
+
+                const SizedBox(height: 15),
+
+
+                SizedBox(
+                  width: 240,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PagProjetos(),
+                        ),
+                      );
+                    },
+                    child: const Text('Projetos'),
                   ),
-                ],
-              ),
-            ),
+                ),
 
-            const SizedBox(height: 30),
+                const SizedBox(height: 15),
 
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Sobre()),
-                );
-              },
-              child: const Text('Sobre'),
-            ),
 
-            const SizedBox(height: 15),
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PagProjetos(),
+                SizedBox(
+                  width: 240,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PagServicos(),
+                        ),
+                      );
+                    },
+                    child: const Text('Serviços'),
                   ),
-                );
-              },
-              child: const Text('Projetos'),
-            ),
+                ),
 
-            const SizedBox(height: 15),
+                const SizedBox(height: 15),
 
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PagServicos(),
+
+                SizedBox(
+                  width: 240,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ContatoPage(),
+                        ),
+                      );
+                    },
+                    child: const Text('Contato'),
                   ),
-                );
-              },
-              child: const Text('Serviços'),
+                ),
+              ],
             ),
-
-            const SizedBox(height: 15),
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ContatoPage(),
-                  ),
-                );
-              },
-              child: const Text('Contato'),
-            ),
-          ],
+          ),
         ),
       ),
     );
